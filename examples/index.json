@@ -96,7 +96,8 @@
         "category": "R examples",
         "apps": [
           "001-hello",
-          "011-timer"
+          "002-text",
+          "012-exchange"
         ]
       }
     ]
