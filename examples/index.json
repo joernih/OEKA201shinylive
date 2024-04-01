@@ -97,7 +97,9 @@
         "apps": [
           "001-hello",
           "002-text",
-          "012-exchange"
+          "012-exchange",
+          "013-macroindi",
+          "014-macromulti"
         ]
       }
     ]
