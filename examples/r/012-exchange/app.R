@@ -6,7 +6,7 @@ library("OEKA201WASMP")
 ### **Gjøre i stand dataene om pengemengdeveksten fra FRED**
 data_vk <- data.frame(OEKA201WASMP::nb_ts[[1]])
 ui <- fluidPage(
-  titlePanel("Mange land"),
+  titlePanel("Exchange rate"),
   sidebarLayout(
    sidebarPanel(
        selectInput("veks","Form",c("value_EUR","value_USD")),
