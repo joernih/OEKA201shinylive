@@ -1,2 +1,2 @@
 Plotly
-Interactive plot with plotly
+Plotly via ipywidgets

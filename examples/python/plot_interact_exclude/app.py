@@ -1,3 +1,4 @@
+# Note: This app uses a development version of plotnine.
 from pathlib import Path
 
 import numpy as np
@@ -40,31 +41,32 @@ app_ui = ui.page_fluid(
 
 
 def server(input, output, session):
-    keep_rows = reactive.value([True] * len(mtcars))
+    keep_rows = reactive.Value([True] * len(mtcars))
 
-    @reactive.calc
+    @reactive.Calc
     def data_with_keep():
         df = mtcars.copy()
         df["keep"] = keep_rows()
         return df
 
-    @reactive.effect
+    @reactive.Effect
     @reactive.event(input.plot1_click)
     def _():
         res = near_points(mtcars, input.plot1_click(), all_rows=True, max_points=1)
         keep_rows.set(list(np.logical_xor(keep_rows(), res.selected_)))
 
-    @reactive.effect
+    @reactive.Effect
     @reactive.event(input.exclude_toggle)
     def _():
         res = brushed_points(mtcars, input.plot1_brush(), all_rows=True)
         keep_rows.set(list(np.logical_xor(keep_rows(), res.selected_)))
 
-    @reactive.effect
+    @reactive.Effect
     @reactive.event(input.exclude_reset)
     def _():
         keep_rows.set([True] * len(mtcars))
 
+    @output
     @render.plot()
     def plot1():
         df = data_with_keep()
@@ -78,6 +80,7 @@ def server(input, output, session):
             + geom_smooth(method="lm", fullrange=True)
         )
 
+    @output
     @render.text()
     def model():
         df = data_with_keep()

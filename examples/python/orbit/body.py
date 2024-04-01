@@ -6,7 +6,6 @@ without having to repeat the code.
 
 Learn more about Shiny modules at: https://shiny.posit.co/py/docs/workflow-modules.html
 """
-
 import astropy.units as u
 import numpy as np
 from shiny import module, reactive, ui
@@ -40,7 +39,7 @@ def body_ui(enable, mass, speed, theta, phi):
 
 @module.server
 def body_server(input, output, session, label, start_vec):
-    @reactive.calc
+    @reactive.Calc
     def body_result():
         if not input.enable():
             return None

@@ -91,21 +91,21 @@ app_ui = ui.page_fluid(
 
 # This subclass of Inputs is used to help the static type checker.
 class ShinyInputs(Inputs):
-    Enter: reactive.value[int]
-    Back: reactive.value[int]
-    new_game: reactive.value[int]
-    hard: reactive.value[bool]
+    Enter: reactive.Value[int]
+    Back: reactive.Value[int]
+    new_game: reactive.Value[int]
+    hard: reactive.Value[bool]
 
 
 def server(input, output, session):
     # Treat `input` as a ShinyInputs object, for the static type checker.
     input = cast(ShinyInputs, input)
 
-    # These reactive.values represent the current state of the game.
-    target_word = reactive.value[str]()
-    all_guesses = reactive.value[list[GuessInfo]]()
-    game_has_ended = reactive.value[bool]()
-    current_guess_letters = reactive.value[list[str]]()
+    # These reactive.Values represent the current state of the game.
+    target_word = reactive.Value[str]()
+    all_guesses = reactive.Value[list[GuessInfo]]()
+    game_has_ended = reactive.Value[bool]()
+    current_guess_letters = reactive.Value[list[str]]()
 
     def reset_game():
         target_word.set(random.choice(tuple(words.targets)))
@@ -118,6 +118,7 @@ def server(input, output, session):
     # ==========================================================================
     # UI displaying guesses
     # ==========================================================================
+    @output
     @render.ui
     def previous_guesses() -> TagList:
         res = TagList()
@@ -139,6 +140,7 @@ def server(input, output, session):
 
         return res
 
+    @output
     @render.ui
     @reactive.event(current_guess_letters, game_has_ended)
     def current_guess():
@@ -161,7 +163,7 @@ def server(input, output, session):
 
         return res
 
-    @reactive.calc
+    @reactive.Calc
     def used_letters() -> dict[str, LetterMatch]:
         # This is a dictionary. The structure will be something like:
         # {"p": "not-in-word", "a": "in-word", "e": "correct")
@@ -198,6 +200,7 @@ def server(input, output, session):
         ["Enter", "Z", "X", "C", "V", "B", "N", "M", "Back"],
     ]
 
+    @output
     @render.ui
     def keyboard():
         prev_match_type = used_letters()
@@ -219,7 +222,7 @@ def server(input, output, session):
 
         return keyboard_div
 
-    @reactive.effect
+    @reactive.Effect
     @reactive.event(input.Back)  # Take a dependency on the Back button
     def _():
         if game_has_ended():
@@ -229,7 +232,7 @@ def server(input, output, session):
             current_letters.pop()
             current_guess_letters.set(current_letters)
 
-    @reactive.effect
+    @reactive.Effect
     @reactive.event(input.Enter)  # Take a dependency on the Enter button
     def _():
         if game_has_ended():
@@ -265,7 +268,7 @@ def server(input, output, session):
     # Create observers to listen to each possible keypress
     # ==========================================================================
     def make_key_listener(key: str):
-        @reactive.effect
+        @reactive.Effect
         @reactive.event(input[key])
         def _():
             if game_has_ended():
@@ -287,6 +290,7 @@ def server(input, output, session):
     # ==========================================================================
     # Endgame dialog
     # ==========================================================================
+    @output
     @render.ui
     @reactive.event(game_has_ended)
     def endgame():
@@ -321,12 +325,13 @@ def server(input, output, session):
     # ==========================================================================
     # New game button
     # ==========================================================================
+    @output
     @render.ui
     def new_game_ui():
         if game_has_ended():
             return ui.input_action_button("new_game", "New Game")
 
-    @reactive.effect
+    @reactive.Effect
     @reactive.event(input.new_game)
     def _():
         reset_game()

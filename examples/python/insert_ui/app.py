@@ -1,10 +1,16 @@
-from shiny import reactive
-from shiny.express import input, render, ui
+from shiny import App, reactive, render, ui
 
-ui.h2("Dynamic UI")
-with ui.div(id="main-content"):
-    ui.input_action_button("btn", "Trigger insert/remove ui")
+app_ui = ui.page_fluid(
+    {"id": "main-content"},
+    ui.h2("Dynamic UI"),
+    ui.input_action_button("btn", "Trigger insert/remove ui"),
+    ui.output_ui("dyn_ui"),
+)
 
+
+def server(input, output, session):
+    # One way of adding dynamic content is with @render.ui.
+    @output
     @render.ui
     def dyn_ui():
         return ui.input_slider(
@@ -14,7 +20,7 @@ with ui.div(id="main-content"):
     # Another way of adding dynamic content is with ui.insert_ui() and ui.remove_ui().
     # The insertion is imperative, so, compared to @render.ui, more care is needed to
     # make sure you don't add multiple copies of the content.
-    @reactive.effect
+    @reactive.Effect
     def _():
         btn = input.btn()
         if btn % 2 == 1:
@@ -28,3 +34,6 @@ with ui.div(id="main-content"):
             )
         elif btn > 0:
             ui.remove_ui("#inserted-slider")
+
+
+app = App(app_ui, server)

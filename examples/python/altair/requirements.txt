@@ -1,4 +1,0 @@
-altair
-anywidget
-palmerpenguins
-jsonschema

@@ -30,6 +30,7 @@ app_ui = ui.page_fluid(
 
 
 def server(input, output, session):
+    @output
     @render.data_frame
     def grid():
         height = 350 if input.fixedheight() else None
@@ -51,6 +52,7 @@ def server(input, output, session):
                 filters=input.filters(),
             )
 
+    @output
     @render.text
     def detail():
         if (

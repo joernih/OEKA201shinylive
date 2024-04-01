@@ -1,2 +1,0 @@
-altair
-Interactive plot with altair

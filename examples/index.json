@@ -8,7 +8,15 @@
       },
       {
         "category": "Featured",
-        "apps": ["cpuinfo", "regularization", "plotly", "altair", "ipyleaflet"]
+        "apps": [
+          "cpuinfo",
+          "orbit",
+          "regularization",
+          "wordle",
+          "plotly",
+          "ipyleaflet",
+          "camera"
+        ]
       },
       {
         "category": "Intermediate",
@@ -16,11 +24,47 @@
           "multiple_source_files",
           "read_local_csv_file",
           "file_upload",
+          "file_download",
           "insert_ui",
           "input_update",
+          "modules",
           "extra_packages",
-          "fetch"
+          "static_content",
+          "fetch",
+          "ipywidgets"
         ]
+      },
+      {
+        "category": "Inputs",
+        "apps": [
+          "input_text",
+          "input_numeric",
+          "input_slider",
+          "input_checkbox",
+          "input_switch",
+          "input_checkbox_group",
+          "input_select",
+          "input_radio",
+          "input_text_area",
+          "input_date",
+          "input_date_range",
+          "input_password"
+        ]
+      },
+      {
+        "category": "Outputs",
+        "apps": [
+          "output_text",
+          "output_text_verbatim",
+          "output_ui",
+          "output_plot",
+          "output_table",
+          "output_data_frame_grid"
+        ]
+      },
+      {
+        "category": "Layout",
+        "apps": ["shinyswatch", "layout_sidebar", "layout_two_column"]
       },
       {
         "category": "Reactivity",
@@ -29,16 +73,6 @@
           "reactive_effect",
           "reactive_calc",
           "reactive_value"
-        ]
-      },
-      {
-        "category": "Shiny Core",
-        "apps": [
-          "file_download_core",
-          "modules",
-          "orbit",
-          "wordle",
-          "static_content"
         ]
       },
       {
@@ -62,15 +96,6 @@
         "category": "R examples",
         "apps": [
           "001-hello",
-          "002-text",
-          "003-reactivity",
-          "004-mpg",
-          "005-sliders",
-          "006-tabsets",
-          "007-widgets",
-          "008-html",
-          "009-upload",
-          "010-download",
           "011-timer"
         ]
       }

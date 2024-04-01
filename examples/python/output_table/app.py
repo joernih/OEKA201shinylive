@@ -29,6 +29,7 @@ app_ui = ui.page_fluid(
 
 
 def server(input, output, session):
+    @output
     @render.table
     def result():
         if not input.highlight():
