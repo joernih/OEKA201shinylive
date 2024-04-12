@@ -1,8 +1,8 @@
-webr::install("OEKA201WASMP", repos = "https://joernih.github.io/OEKA201WASMA/")
+webr::install("WASMP", repos = "https://joernih.github.io/WASMA/")
 library(shiny)
 library(dplyr)
 library(ggplot2)
-library("OEKA201WASMP")
+library("WASMP")
 ### **Gjøre i stand dataene om pengemengdeveksten fra FRED**
 data_ma <- fred_ts[[2]]
 vd1 <- as.Date("2022-01-01")

@@ -1,17 +1,16 @@
 if (grepl("wasm", sessionInfo()[[2]])) {
   # If the session info contains "wasm", install the package from the specified repository
-  webr::install("OEKA201WASMP", repos = "https://joernih.github.io/OEKA201WASMA/")
+  webr::install("WASMP", repos = "https://joernih.github.io/WASMA/")
 } else {
   # If the session info does not contain "wasm", load the package from the local library
-  library("OEKA201WASMP")
+  library("WASMP")
 }
 # WASMP packages
 library(shiny)
 library(dplyr)
 library(ggplot2)
 # 
-data_vk <- data.frame(OEKA201WASMP::nb_ts[[1]])
-View(data_vk)
+data_vk <- data.frame(WASMP::nb_ts[[1]])
 
 
 ui <- fluidPage(
