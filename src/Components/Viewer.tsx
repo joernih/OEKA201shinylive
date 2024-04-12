@@ -1,11 +1,11 @@
 import * as React from "react";
-import { PyodideProxy } from "../pyodide-proxy";
+import type { PyodideProxy } from "../pyodide-proxy";
 import * as utils from "../utils";
-import { WebRProxy } from "../webr-proxy";
-import { ProxyHandle } from "./App";
+import type { WebRProxy } from "../webr-proxy";
+import type { ProxyHandle } from "./App";
 import { LoadingAnimation } from "./LoadingAnimation";
 import "./Viewer.css";
-import { FileContent } from "./filecontent";
+import type { FileContent } from "./filecontent";
 import skull from "./skull.svg";
 
 export type ViewerMethods =
@@ -126,9 +126,11 @@ async function resetRAppFrame(
 export function Viewer({
   proxyHandle,
   setViewerMethods,
+  devMode = false,
 }: {
   proxyHandle: ProxyHandle;
   setViewerMethods: React.Dispatch<React.SetStateAction<ViewerMethods>>;
+  devMode?: boolean;
 }) {
   const viewerFrameRef = React.useRef<HTMLIFrameElement>(null);
   const [appRunningState, setAppRunningState] = React.useState<
@@ -268,6 +270,7 @@ export function Viewer({
         await pyodideproxy.callPyAsync({
           fnName: ["_start_app"],
           args: [appName],
+          kwargs: { dev_mode: devMode },
         });
 
         viewerFrameRef.current.src = appInfo.urlPath;
