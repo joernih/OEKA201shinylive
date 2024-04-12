@@ -1,15 +1,24 @@
-webr::install("OEKA201WASMP", repos = "https://joernih.github.io/OEKA201WASMA/")
+if (grepl("wasm", sessionInfo()[[2]])) {
+  # If the session info contains "wasm", install the package from the specified repository
+  webr::install("OEKA201WASMP", repos = "https://joernih.github.io/OEKA201WASMA/")
+} else {
+  # If the session info does not contain "wasm", load the package from the local library
+  library("OEKA201WASMP")
+}
+# WASMP packages
 library(shiny)
 library(dplyr)
 library(ggplot2)
-library("OEKA201WASMP")
-### **Gjøre i stand dataene om pengemengdeveksten fra FRED**
+# 
 data_vk <- data.frame(OEKA201WASMP::nb_ts[[1]])
+View(data_vk)
+
+
 ui <- fluidPage(
-  titlePanel("Exchange rate"),
+  titlePanel("Mange land"),
   sidebarLayout(
    sidebarPanel(
-       selectInput("veks","Form",c("value_EUR","value_USD")),
+       selectInput("veks","Form",c("value_EUR","value_USD","value_SEK")),
        textInput("datef", "Select fra dato:", value = "2020-01-01"),
        textInput("datet", "Select til dato:", value = "2021-10-05")
     ),
