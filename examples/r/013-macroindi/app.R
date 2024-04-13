@@ -8,7 +8,6 @@ if (grepl("wasm", sessionInfo()[[2]])) {
 library(shiny)
 library(dplyr)
 library(ggplot2)
-library("WASMP")
 ### **Gjøre i stand dataene om pengemengdeveksten fra FRED**
 data_ma <- fred_ts[[2]]
 vd1 <- as.Date("2022-01-01")
