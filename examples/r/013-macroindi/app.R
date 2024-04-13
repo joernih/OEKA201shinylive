@@ -1,9 +1,9 @@
 if (grepl("wasm", sessionInfo()[[2]])) {
   # If the session info contains "wasm", install the package from the specified repository
   webr::install("WASMP", repos = "https://joernih.github.io/WASMA/")
+  library("WASMP")
 } else {
   # If the session info does not contain "wasm", load the package from the local library
-  library("WASMP")
 }
 library(shiny)
 library(dplyr)
@@ -64,5 +64,4 @@ server <- function(input, output) {
   })
 }
 shinyApp(ui = ui, server = server)
-
 
