@@ -1,15 +1,21 @@
-webr::install("WASMP", repos = "https://joernih.github.io/WASMA/")
+if (grepl("wasm", sessionInfo()[[2]])) {
+  # If the session info contains "wasm", install the package from the specified repository
+  webr::install("OEKA201WASMP", repos = "https://joernih.github.io/OEKA201WASMA/")
+} else {
+  # If the session info does not contain "wasm", load the package from the local library
+  library("OEKA201WASMP")
+}
 library(shiny)
 library(dplyr)
 library(ggplot2)
-library("WASMP")
+library("OEKA201WASMP")
 ### **Gjøre i stand dataene om pengemengdeveksten fra FRED**
 data_ma <- fred_ts[[2]]
 vd1 <- as.Date("2022-01-01")
 vd2 <- as.Date("2020-02-01")
 plnv <- c('nvalue','growth')[1]
 ui <- fluidPage(
-  titlePanel("Multiple countries"),
+  titlePanel("Mange land"),
   sidebarLayout(
    sidebarPanel(
        selectizeInput("cntr","Land",choices=c("USA","JPN","EUZ","GBR","CAN","NOR","DEN","SWE","SKE"),
@@ -59,4 +65,11 @@ server <- function(input, output) {
   })
 }
 shinyApp(ui = ui, server = server)
+
+
+
+
+
+
+
 
